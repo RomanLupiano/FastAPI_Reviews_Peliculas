@@ -9,7 +9,6 @@
 
 Desde /docs se pueden ver los endpoints y mandar peticiones
 
-
 TODOs:
 CRUD Movies  
 Read y Delete Users  
