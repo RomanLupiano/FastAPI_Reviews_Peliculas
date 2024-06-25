@@ -11,5 +11,6 @@ Desde /docs se pueden ver los endpoints y mandar peticiones
 
 
 TODOs:
-Hacer el CRUD de movies
-No permitir más de una reseña por usuario
+CRUD Movies  
+Read y Delete Users  
+No permitir más de una reseña por usuario  
