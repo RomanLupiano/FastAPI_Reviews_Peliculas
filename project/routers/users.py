@@ -1,9 +1,11 @@
-from fastapi import HTTPException, APIRouter, Response, Cookie
+from fastapi import HTTPException, APIRouter, Response, Depends
 from fastapi.security import HTTPBasicCredentials
 
 from ..database import User
 
 from ..schemas import UserResponseModel, UserRequestModel, ReviewResponseModel
+
+from ..common import get_current_user
 
 from typing import List
 
@@ -36,6 +38,7 @@ async def login(credentials: HTTPBasicCredentials, response: Response):
     response.set_cookie(key='user_id', value=user.id) #TOKEN
     return user
 
+'''
 @router.get('/reviews', response_model=List[ReviewResponseModel])
 async def get_reviews(user_id: int = Cookie(None)):
     
@@ -45,3 +48,8 @@ async def get_reviews(user_id: int = Cookie(None)):
         raise HTTPException(303, 'User not found')
     
     return [user_review for user_review in user.reviews]
+'''
+
+@router.get('/reviews', response_model=List[ReviewResponseModel])
+async def get_reviews(user: str = Depends(get_current_user)):
+    return [ user_review for user_review in user.reviews ]

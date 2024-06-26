@@ -1,16 +1,36 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 
 from project.database import database as connection, User, Movie, UserReview
 
 from .routers import user_router, review_router
 
+from .common import create_access_token
+
 app = FastAPI(title='Movie review proyect in Fast API', version='1')
 
 api_v1 = APIRouter(prefix='/api/v1')
+
 api_v1.include_router(user_router)
 api_v1.include_router(review_router)
 
 app.include_router(api_v1)
+
+@app.post('/auth')
+async def auth(data: OAuth2PasswordRequestForm = Depends()):
+    user = User.authenticate(data.username, data.password)
+    
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        ) 
+
+    return {
+        'access_token': create_access_token(user.id, user.username),
+        'token_type': 'bearer'
+    } 
 
 
 @app.on_event('startup')

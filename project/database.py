@@ -31,6 +31,16 @@ class User(Model):
         h.update(password.encode('utf-8'))
         return h.hexdigest()
     
+    @classmethod
+    def authenticate(cls, username, password):
+        user = cls.select().where(User.username == username).first()
+
+        if user and user.password == User.create_password(password):
+            return user
+
+    def __str__(self):
+        return self.username
+    
 
 class Movie(Model):
     title = CharField(max_length=50)
