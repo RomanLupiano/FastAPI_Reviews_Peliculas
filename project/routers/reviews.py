@@ -13,8 +13,14 @@ router = APIRouter(prefix='/reviews')
 @router.post('', response_model=ReviewResponseModel)
 async def create_review(user_review: ReviewRequestModel, user: User = Depends(get_current_user)):
     
-    if Movie.select().where(Movie.id == user_review.movie_id).first() is None:
+    movie = Movie.select().where(Movie.id == user_review.movie_id).first()
+    
+    if movie is None:
         raise HTTPException(404, 'Movie not found')
+    
+    if UserReview.select().where((UserReview.user == user.id) & (UserReview.movie == movie.id)).exists():
+        raise HTTPException(409, 'Already created a review')
+
 
     
     user_review = UserReview.create(
