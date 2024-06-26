@@ -55,8 +55,8 @@ class Movie(Model):
 
 
 class UserReview(Model):
-    user = ForeignKeyField(User, backref='reviews')
-    movie = ForeignKeyField(Movie, backref='reviews')
+    user = ForeignKeyField(User, backref='reviews', on_delete='CASCADE')
+    movie = ForeignKeyField(Movie, backref='reviews', on_delete='CASCADE')
     review = TextField()
     score = IntegerField()
     created_at = DateTimeField(default=datetime.now)

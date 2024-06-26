@@ -17,7 +17,7 @@ Desde /docs se pueden ver los endpoints y mandar peticiones
 
 
 
-### Tecnologías y herramientas utilizadas
+### Tecnologías y herramientas utilizadas 🛠️
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [Uvicorn](https://www.uvicorn.org/)
 - [Requests](https://pypi.org/project/requests/)
@@ -27,8 +27,8 @@ Desde /docs se pueden ver los endpoints y mandar peticiones
 - [pyJWT](https://pyjwt.readthedocs.io/en/stable/) -> OAuth2 con JWT
 
 
-### Algunas cosas para implementar 🛠️
-- CRUD Movies  
+### Algunas cosas para implementar 📜
+- Requirement.txt
 - Read y Delete Users  
 - No permitir más de una reseña por usuario  
 - Script SQL para cargar con datos de ejemplo

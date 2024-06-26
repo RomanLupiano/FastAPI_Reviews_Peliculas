@@ -35,6 +35,15 @@ class UserResponseModel(ResponseModel):
 class MovieResponseModel(ResponseModel):
     id: int
     title: str
+    
+class MovieRequestModel(BaseModel):
+    title: str
+    
+    @validator('title')
+    def title_valdiator(cls, title):
+        if len(title) < 1 or len(title) > 50:
+            raise ValueError('Title lenght must be between 1 and 50 characters')
+        return title
 
 
 # -------- Review --------

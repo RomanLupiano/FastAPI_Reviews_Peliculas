@@ -1,18 +1,19 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from project.database import database as connection, User, Movie, UserReview
 
-from .routers import user_router, review_router
+from .routers import user_router, review_router, movies_router
 
 from .common import create_access_token
 
-app = FastAPI(title='Movie review proyect in Fast API', version='1')
+app = FastAPI(title='Movie review project in Fast API', version='1')
 
 api_v1 = APIRouter(prefix='/api/v1')
 
 api_v1.include_router(user_router)
 api_v1.include_router(review_router)
+api_v1.include_router(movies_router)
 
 app.include_router(api_v1)
 
